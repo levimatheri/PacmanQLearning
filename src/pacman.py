@@ -149,6 +149,18 @@ class GameState:
         """
         return self.data.food
 
+    def getCapsulePos(self):
+        """
+        Returns a Grid of boolean powerpellet indicator variables.
+
+        Grids can be accessed via list notation, so to check
+        if there is food at (x,y), just call
+
+        currentPowerPellet = state.getPowerPellet()
+        if currentPowerPellet[x][y] == True: ...
+        """
+        return self.data.powerpellet
+
     def getWalls(self):
         """
         Returns a Grid of boolean wall indicator variables.

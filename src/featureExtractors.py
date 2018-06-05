@@ -43,6 +43,7 @@ class SimpleExtractor(FeatureExtractor):
     Returns simple features for a basic reflex Pacman:
     - whether food will be eaten
     - how far away the next food is
+    - how far away the next powerball is
     - whether a ghost collision is imminent
     - whether a ghost is one step away
     """
