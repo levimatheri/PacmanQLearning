@@ -23,11 +23,14 @@ class QAgentWindow(Window):
         vcmd = (master.register(self.validate),
                 '%d', '%i', '%P', '%s', '%S', '%v', '%V', '%W')
 
-        totalval.set("20")
-        trainval.set("10")
+        totalval.set("2010")
+        trainval.set("2000")
 
-        total_entry = PacmanEntry(20, master=master, textvariable=totalval, bd=3, validate='key', validatecommand=vcmd)
-        train_entry = PacmanEntry(10, master=master, textvariable=trainval, bd=3, validate='key', validatecommand=vcmd)
+        total_entry = PacmanEntry(2010, master=master, textvariable=totalval, bd=3, validate='key', validatecommand=vcmd)
+        train_entry = PacmanEntry(2000, master=master, textvariable=trainval, bd=3, validate='key', validatecommand=vcmd)
+
+        clearTotal = tk.Button(master, text="Clear", command=lambda: self.clear(totalval))
+        clearTrain = tk.Button(master, text="Clear", command=lambda: self.clear(trainval))
 
         default_layout = tk.StringVar(master, value="smallGrid")
         layout_entry = tk.OptionMenu(master, default_layout,
@@ -42,16 +45,18 @@ class QAgentWindow(Window):
         reset = tk.Button(master, text="Reset Defaults", command=lambda: self.reset_defaults([total_entry, totalval], [train_entry, trainval], layout=[layout_entry, default_layout], watchvar=[watch_entry, default_watchvar]))
         reset.pack()
 
-        startcmd = lambda: launchFunctions.launchQLearning(total_entry.get(), train_entry.get(), default_layout.get())
+        startcmd = lambda: launchFunctions.launchQLearning(total_entry.get(), train_entry.get(), default_layout.get(), default_watchvar.get())
 
-        if default_watchvar.get() == 'Yes':
-            startcmd = lambda: launchFunctions.launchQLearningWatch(train_entry.get(), default_layout.get())
+        # if default_watchvar.get() == 'Yes':
+        #     startcmd = lambda: launchFunctions.launchQLearningWatch(total_entry.get() - train_entry.get(), default_layout.get())
 
         start = tk.Button(master, text="START", command=startcmd)
         start.pack()
 
         total_entry.grid(row=0, column=1)
+        clearTotal.grid(row=0, column=2)
         train_entry.grid(row=1, column=1)
+        clearTrain.grid(row=1, column=2)
         layout_entry.grid(row=2, column=1)
         watch_entry.grid(row=3, column=1)
         reset.grid(row=4, column=1)
@@ -80,3 +85,6 @@ class QAgentWindow(Window):
         for entry in entries:
             # print entry[1].get()
             entry[1].set(str(entry[0].default_val))
+
+    def clear(self, curr_val):
+        curr_val.set("")

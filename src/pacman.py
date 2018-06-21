@@ -120,7 +120,10 @@ class GameState:
         return self.data.agentStates[agentIndex].getPosition()
 
     def getGhostPositions(self):
-        return [s.getPosition() for s in self.getGhostStates()]
+        return [s.getPosition() for s in self.getGhostStates() if s.scaredTimer <= 0]
+
+    def getScaredGhostPositions(self):
+        return [s.getPosition() for s in self.getGhostStates() if s.scaredTimer > 0]
 
     def getNumAgents( self ):
         return len( self.data.agentStates )
@@ -149,17 +152,17 @@ class GameState:
         """
         return self.data.food
 
-    def getCapsulePos(self):
+    def getCapsulePositions(self):
         """
-        Returns a Grid of boolean powerpellet indicator variables.
+        Returns a Grid of boolean capsule indicator variables.
 
         Grids can be accessed via list notation, so to check
         if there is food at (x,y), just call
 
-        currentPowerPellet = state.getPowerPellet()
-        if currentPowerPellet[x][y] == True: ...
+        currentCapsule = state.getCapsulePositions()
+        if currentCapsule[x][y] == True: ...
         """
-        return self.data.powerpellet
+        return self.data.capsulePositions
 
     def getWalls(self):
         """
@@ -344,7 +347,10 @@ class PacmanRules:
                 state.data._win = True
         # Eat capsule
         if( position in state.getCapsules() ):
+            state.data.scoreChange += 50
             state.data.capsules.remove( position )
+            state.data.capsulePositions = state.data.capsulePositions.copy()
+            state.data.capsulePositions[x][y] = False
             state.data._capsuleEaten = position
             # Reset all ghosts' scared timers
             for index in range( 1, len( state.data.agentStates ) ):
@@ -408,7 +414,7 @@ class GhostRules:
 
     def collide( state, ghostState, agentIndex):
         if ghostState.scaredTimer > 0:
-            state.data.scoreChange += 200
+            state.data.scoreChange += 800
             GhostRules.placeGhost(state, ghostState)
             ghostState.scaredTimer = 0
             # Added for first-person

@@ -31,6 +31,8 @@ class ApproximateQAgentWindow(Window):
         total_entry = PacmanEntry(20, master=master, textvariable=totalval, bd=3, validate='key', validatecommand=vcmd)
         train_entry = PacmanEntry(10, master=master, textvariable=trainval, bd=3, validate='key', validatecommand=vcmd)
 
+        clearTotal = tk.Button(master, text="Clear", command=lambda: self.clear(totalval))
+        clearTrain = tk.Button(master, text="Clear", command=lambda: self.clear(trainval))
 
         default_layout = tk.StringVar(master, value="mediumClassic")
         layout_entry = tk.OptionMenu(master, default_layout,
@@ -44,8 +46,11 @@ class ApproximateQAgentWindow(Window):
         start = tk.Button(master, text="START", command=lambda: launchFunctions.launchApproxQLearning(total_entry.get(), train_entry.get(), default_layout.get()))
         start.pack()
 
+
         total_entry.grid(row=0, column=1)
+        clearTotal.grid(row=0, column=2)
         train_entry.grid(row=1, column=1)
+        clearTrain.grid(row=1, column=2)
         layout_entry.grid(row=2, column=1)
         reset.grid(row=3, column=1)
         start.grid(row=4, column=1)
@@ -72,3 +77,6 @@ class ApproximateQAgentWindow(Window):
         for entry in entries:
             # print entry[1].get()
             entry[1].set(str(entry[0].default_val))
+
+    def clear(self, curr_val):
+        curr_val.set("")

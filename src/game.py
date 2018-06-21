@@ -349,6 +349,7 @@ class GameStateData:
         """
         if prevState != None:
             self.food = prevState.food.shallowCopy()
+            self.capsulePositions = prevState.capsulePositions.shallowCopy()
             self.capsules = prevState.capsules[:]
             self.agentStates = self.copyAgentStates( prevState.agentStates )
             self.layout = prevState.layout
@@ -366,6 +367,7 @@ class GameStateData:
     def deepCopy( self ):
         state = GameStateData( self )
         state.food = self.food.deepCopy()
+        state.capsulePositions = self.capsulePositions.deepCopy()
         state.layout = self.layout.deepCopy()
         state._agentMoved = self._agentMoved
         state._foodEaten = self._foodEaten
@@ -461,6 +463,7 @@ class GameStateData:
         """
         self.food = layout.food.copy()
         self.capsules = layout.capsules[:]
+        self.capsulePositions = layout.capsulePositions.copy()
         self.layout = layout
         self.score = 0
         self.scoreChange = 0

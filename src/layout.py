@@ -22,6 +22,7 @@ class Layout:
         self.walls = Grid(self.width, self.height, False)
         self.food = Grid(self.width, self.height, False)
         self.capsules = []
+        self.capsulePositions = Grid(self.width, self.height, False)
         self.agentPositions = []
         self.numGhosts = 0
         self.processLayoutText(layoutText)
@@ -111,6 +112,7 @@ class Layout:
             self.food[x][y] = True
         elif layoutChar == 'o':
             self.capsules.append((x, y))
+            self.capsulePositions[x][y] = True
         elif layoutChar == 'P':
             self.agentPositions.append( (0, (x, y) ) )
         elif layoutChar in ['G']:

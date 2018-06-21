@@ -27,7 +27,7 @@ class QLearningAgent(ReinforcementAgent):
         q_vals = []
         for action in self.getLegalActions(state):
             q_vals.append(self.getQValue(state, action))
-        if len(self.getLegalAction(state)) == 0:
+        if len(self.getLegalActions(state)) == 0:
             return 0.0
         else:
             return max(q_vals)
@@ -38,38 +38,39 @@ class QLearningAgent(ReinforcementAgent):
           are no legal actions, which is the case at the terminal state,
           return None.
         """
-        max_action = None
-        max_q_val = 0
-        for action in self.getLegalActions(state):
-            q_val = self.getQValue(state, action)
-            if q_val > max_q_val or max_action is None:
-                max_q_val = q_val
-                max_action = action
-        return max_action
+        # max_action = None
+        # max_q_val = 0
+        # for action in self.getLegalActions(state):
+        #     q_val = self.getQValue(state, action)
+        #     if q_val > max_q_val or max_action is None:
+        #         max_q_val = q_val
+        #         max_action = action
+        # return max_action
+        util.raiseNotDefined()
     
     def getAction(self, state):
         """
           Compute the action to take in the current state.  With
           probability self.epsilon, take a random action and
-          take the best policy action otherwise.  If there are
-          no legal actions, which is the case at the terminal state,
-          choose None as the action.
+          take the best policy action otherwise.
         """
         # pick action
-        legalActions = self.getLegalActions(state)
-        if util.flipCoin(self.epsilon):
-            return random.choice(legalActions)
-        else:
-            return self.computeActionFromQValues(state)
+        # legalActions = self.getLegalActions(state)
+        # if util.flipCoin(self.epsilon):
+        #     return random.choice(legalActions)
+        # else:
+        #     return self.computeActionFromQValues(state)
+        util.raiseNotDefined()
         
     def update(self, state, action, nextState, reward):
-        first_part = (1 - self.alpha) * self.getQValue(state, action)
-        if len(self.getLegalActions(nextState)) == 0:
-            sample = reward
-        else:
-            sample = reward + (self.discount * max([self.getQValue(nextState, next_action) for next_action in self.getLegalActions(nextState)]))
-        second_part = self.alpha * sample
-        self.q_values[(state, action)] = first_part + second_part
+        # first_part = (1 - self.alpha) * self.getQValue(state, action)
+        # if len(self.getLegalActions(nextState)) == 0:
+        #     sample = reward
+        # else:
+        #     sample = reward + (self.discount * max([self.getQValue(nextState, next_action) for next_action in self.getLegalActions(nextState)]))
+        # second_part = self.alpha * sample
+        # self.q_values[(state, action)] = first_part + second_part
+        util.raiseNotDefined()
         
     def getPolicy(self, state):
         return self.computeActionFromQValues(state)
