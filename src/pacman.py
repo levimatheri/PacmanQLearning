@@ -11,13 +11,11 @@ from util import manhattanDistance
 import util, layout
 import sys, types, time, random, os
 
-from graphicsUtils import Ng
 
 ###################################################
 # YOUR INTERFACE TO THE PACMAN WORLD: A GameState #
 ###################################################
 class GameState:
-    ng = 0
     """
     A GameState specifies the full game state, including the food, capsules,
     agent configurations and score changes.
@@ -550,7 +548,6 @@ def readCommand( argv ):
         args['display'] = graphicsDisplay.PacmanGraphics(options.zoom, frameTime = options.frameTime)
     args['numGames'] = options.numGames
     
-    Ng.ng = options.numGames
     args['record'] = options.record
     args['catchExceptions'] = options.catchExceptions
     args['timeout'] = options.timeout
@@ -617,7 +614,6 @@ def runGames( layout, pacman, ghosts, display, numGames, record, numTraining = 0
     games = []
 
     for i in range( numGames ):
-        Ng.ng -= 1
         beQuiet = i < numTraining
         if beQuiet:
                 # Suppress output and graphics
