@@ -5,6 +5,8 @@
 
 from game import Agent
 from game import Directions
+from graphicsUtils import keys_waiting
+from graphicsUtils import keys_pressed
 import random
 
 class KeyboardAgent(Agent):
@@ -25,9 +27,8 @@ class KeyboardAgent(Agent):
         self.keys = []
 
     def getAction( self, state):
-        from graphicsUtils import keys_waiting
-        from graphicsUtils import keys_pressed
         keys = keys_waiting() + keys_pressed()
+        #print keys
         if keys != []:
             self.keys = keys
 

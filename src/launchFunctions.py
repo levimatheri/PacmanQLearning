@@ -2,7 +2,7 @@ from subprocess import Popen
 
 ### LAUNCH FUNCTIONS ###
 def launchKeyboard(no_total=None, layout=None):
-    attr_list = ['python', 'pacman.py', '-p', 'KeyboardAgent']
+    attr_list = ['python', 'pacman.py', '-p', 'KeyboardAgent', '-x', '3']
 
     if layout is not None:
         attr_list.extend(['-l', str(layout)])
